@@ -5,12 +5,7 @@ import medanCommand from "./Medan's commands/medan/index.js";
 
 const program = new Command();
 
-program
-  .name("medan")
-  .description("The Medan command-line interface")
-  .version("0.1.0");
-
-// Register built-in commands
+// Register top-level commands
 program.addCommand(nanoCommand());
 program.addCommand(curlCommand());
 program.addCommand(medanCommand());
