@@ -1,10 +1,10 @@
-name: Build Medan CLI
+name: Setup Medan CLI
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,16 +16,19 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - name: Initialize npm
+        run: npm init -y
 
-      - name: Build TypeScript
-        run: npx tsc
+      - name: Install TypeScript + Node types
+        run: npm install typescript ts-node @types/node
 
-      - name: Commit build output
+      - name: Install Commander
+        run: npm install commander
+
+      - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add dist
-          git commit -m "Build CLI" || echo "No changes to commit"
+          git add package.json package-lock.json
+          git commit -m "Initialize CLI project" || echo "No changes to commit"
           git push
