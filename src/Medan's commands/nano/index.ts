@@ -4,9 +4,10 @@ export default function nanoCommand() {
   const cmd = new Command("nano");
 
   cmd
-    .description("Open the nano editor")
-    .action(() => {
-      console.log("Nano is not implemented yet.");
+    .argument("<file>", "file to open")
+    .description("Open a file in the nano editor")
+    .action((file) => {
+      console.log(`Nano is not implemented yet. Would open: ${file}`);
     });
 
   return cmd;
