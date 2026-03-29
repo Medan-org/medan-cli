@@ -1,6 +1,7 @@
 import { Command } from "commander";
-import { readdirSync } from "fs";
-import { join } from "path";
+import nanoCommand from "./Medan's commands/nano/index.js";
+import curlCommand from "./Medan's commands/curl/index.js";
+import medanCommand from "./Medan's commands/medan/index.js";
 
 const program = new Command();
 
@@ -9,20 +10,9 @@ program
   .description("The Medan command-line interface")
   .version("0.1.0");
 
-// Load built-in commands
-const commandsDir = join(__dirname, "Medan's commands");
-
-const commandFolders = readdirSync(commandsDir, { withFileTypes: true })
-  .filter(dir => dir.isDirectory())
-  .map(dir => dir.name);
-
-for (const folder of commandFolders) {
-  const commandPath = join(commandsDir, folder, "index.js");
-  const commandModule = require(commandPath);
-
-  if (typeof commandModule.default === "function") {
-    program.addCommand(commandModule.default());
-  }
-}
+// Register built-in commands
+program.addCommand(nanoCommand());
+program.addCommand(curlCommand());
+program.addCommand(medanCommand());
 
 program.parse();
