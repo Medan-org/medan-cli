@@ -41,3 +41,8 @@ jobs:
         with:
           name: medan-cli-metadata
           path: dist/metadata.json
+
+      - name: Trigger Publish workflow
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          workflow: Publish Medan CLI
