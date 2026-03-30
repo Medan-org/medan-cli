@@ -1,0 +1,27 @@
+name: Publish Medan CLI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download metadata from update workflow
+        uses: actions/download-artifact@v4
+        with:
+          name: medan-cli-metadata
+          path: ./metadata
+
+      - name: Show metadata
+        run: cat ./metadata/metadata.json
+
+      - name: Publish Medan CLI
+        run: |
+          echo "Publishing Medan CLI using metadata:"
+          cat ./metadata/metadata.json
+          echo "Publish complete."
