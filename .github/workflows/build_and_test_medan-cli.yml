@@ -22,14 +22,14 @@ jobs:
       - name: Build Medan CLI
         run: npm run build
 
-      - name: Test: Medan CLI help command
+      - name: "Test: Medan CLI help command"
         run: node dist/index.js --help
 
-      - name: Test: Medan identity command
+      - name: "Test: Medan identity command"
         run: node dist/index.js medan
 
-      - name: Test: Nano command
+      - name: "Test: Nano command"
         run: node dist/index.js nano test.txt
 
-      - name: Test: Curl command
+      - name: "Test: Curl command"
         run: node dist/index.js curl https://example.com
