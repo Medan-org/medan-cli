@@ -43,6 +43,11 @@ jobs:
           path: dist/metadata.json
 
       - name: Trigger Publish workflow
-        uses: peter-evans/workflow-dispatch@v1
-        with:
-          workflow: Publish Medan CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/Medan-org/medan-cli/actions/workflows/publish_medan-cli.yml/dispatches \
+            -d '{"ref":"main"}'
