@@ -23,7 +23,7 @@ jobs:
         run: npm run build
 
       - name: "Test: Medan CLI help command"
-        run: node dist/index.js --help
+        run: node dist/index.js medan --help
 
       - name: "Test: Medan identity command"
         run: node dist/index.js medan
