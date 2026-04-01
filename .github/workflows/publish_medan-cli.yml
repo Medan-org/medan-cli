@@ -12,10 +12,26 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download metadata from update workflow
-        uses: actions/download-artifact@v4
-        with:
-          name: medan-cli-metadata
-          path: ./metadata
+        run: |
+          run_id=$(gh api \
+            repos/${{ github.repository }}/actions/workflows/update_medan-cli.yml/runs \
+            --jq '.workflow_runs | map(select(.conclusion=="success")) | first.id')
+
+          artifact_url=$(gh api \
+            repos/${{ github.repository }}/actions/runs/$run_id/artifacts \
+            --jq '.artifacts[] | select(.name=="medan-cli-metadata") | .archive_download_url')
+
+          mkdir -p metadata
+
+          curl -L \
+            -o metadata.zip \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "$artifact_url"
+
+          unzip metadata.zip \
+            -d metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show metadata
         run: cat ./metadata/metadata.json
