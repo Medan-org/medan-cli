@@ -1,13 +1,23 @@
-import { Command } from "commander";
+import path from "path";
 import nanoCommand from "./Medan's commands/nano/index.js";
 import curlCommand from "./Medan's commands/curl/index.js";
 import medanCommand from "./Medan's commands/medan/index.js";
 
-const program = new Command();
+const invokedAs = path.basename(process.argv[1]);
 
-// Register top-level commands
-program.addCommand(nanoCommand());
-program.addCommand(curlCommand());
-program.addCommand(medanCommand());
+switch (invokedAs) {
+  case "nano":
+    nanoCommand();
+    break;
 
-program.parse();
+  case "curl":
+    curlCommand();
+    break;
+
+  case "medan":
+    medanCommand();
+    break;
+
+  default:
+    console.log(`Unknown command: ${invokedAs}`);
+}
