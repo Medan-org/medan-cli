@@ -1,6 +1,8 @@
 name: Build & Test Medan CLI
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
