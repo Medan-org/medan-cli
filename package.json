@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^12.0.0"
+    "medan-engine": "file:../medan-engine"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
