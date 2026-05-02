@@ -36,14 +36,22 @@ jobs:
           cd medan-cli
           npm run build
 
-      - name: "Test: Medan CLI help command"
-        run: cd medan-cli && node dist/index.js medan --help
+      - name: Test: Medan CLI help command
+        run: |
+          cd medan-cli
+          node dist/index.js medan --help
 
-      - name: "Test: Medan identity command"
-        run: cd medan-cli && node dist/index.js medan
+      - name: Test: Medan identity command
+        run: |
+          cd medan-cli
+          node dist/index.js medan
 
-      - name: "Test: Nano command"
-        run: cd medan-cli && node dist/index.js nano test.txt
+      - name: Test: Nano command
+        run: |
+          cd medan-cli
+          node dist/index.js nano test.txt
 
-      - name: "Test: Curl command"
-        run: cd medan-cli && node dist/index.js curl https://example.com
+      - name: Test: Curl command
+        run: |
+          cd medan-cli
+          node dist/index.js curl https://example.com
