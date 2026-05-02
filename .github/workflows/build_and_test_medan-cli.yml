@@ -10,8 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout medan-cli
         uses: actions/checkout@v4
+        with:
+          path: medan-cli
+
+      - name: Checkout medan-engine
+        uses: actions/checkout@v4
+        with:
+          repository: Medan-org/medan-engine
+          path: medan-engine
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -19,19 +27,23 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd medan-cli
+          npm install
 
       - name: Build Medan CLI
-        run: npm run build
+        run: |
+          cd medan-cli
+          npm run build
 
       - name: "Test: Medan CLI help command"
-        run: node dist/index.js medan --help
+        run: cd medan-cli && node dist/index.js medan --help
 
       - name: "Test: Medan identity command"
-        run: node dist/index.js medan
+        run: cd medan-cli && node dist/index.js medan
 
       - name: "Test: Nano command"
-        run: node dist/index.js nano test.txt
+        run: cd medan-cli && node dist/index.js nano test.txt
 
       - name: "Test: Curl command"
-        run: node dist/index.js curl https://example.com
+        run: cd medan-cli && node dist/index.js curl https://example.com
